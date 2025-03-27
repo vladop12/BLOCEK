@@ -1,0 +1,10 @@
+# Data processing
+pandas
+numpy
+openpyxl
+
+# API requests
+requests
+
+# Testing
+pytest

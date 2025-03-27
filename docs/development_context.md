@@ -1,48 +1,107 @@
-# Vývojový kontext projektu BLOCEK
+﻿# Vývojový kontext projektu BLOCEK
 
-Tento dokument slúži na udržiavanie kontextu vývoja projektu BLOCEK. Obsahuje aktuálny stav, rozhodnutia a ďalšie kroky.
+## Prehľad projektu
 
-## Aktuálny stav projektu
+BLOCEK je aplikácia určená na spracovanie pokladničných blokov. Umožňuje používateľom načítať obrázky pokladničných blokov, extrahovať z nich relevantné údaje a organizovať tieto údaje pre ďalšie použitie.
 
-- Vytvorená základná adresárová štruktúra projektu
-- Vytvorené základné súbory:
-  - README.md - základné informácie o projekte
-  - config.py - konfiguračné nastavenia
-  - main.py - hlavný vstupný bod aplikácie
+## Aktuálny stav (Marec 2025)
 
-## Dokončené úlohy
+### Implementované funkcie:
+- Základné používateľské rozhranie s možnosťou výberu adresára so súbormi
+- Zobrazenie zoznamu vybraných súborov
+- Základné možnosti spracovania
+- Panel pre spustenie spracovania a sledovanie jeho priebehu
+- Zobrazenie výsledkov spracovania
+- Možnosť exportu výsledkov do Excel súboru
+- Simulácia generovania XML výstupu
 
-- [x] Vytvorenie dokumentácie štruktúry projektu (docs/project_structure.md)
-- [x] Vytvorenie základnej adresárovej štruktúry
-- [x] Vytvorenie základných súborov (README.md, config.py, main.py)
+### Technický dlh:
+- Odstránená funkcionalita náhľadu obrázkov (`ImagePreview`), ktorá bude potrebovať reimplementáciu
+- Aktuálne je implementovaná len simulácia spracovania blokov, nie skutočné OCR
+- Potreba implementácie skutočnej logiky pre extrakciu údajov z blokov
 
-## Aktuálne rozpracované úlohy
+### Architektúra:
+- Modulárny dizajn s oddelenými komponentmi pre rôzne časti UI
+- Použitie Tkinter pre vytvorenie používateľského rozhrania
+- Logovanie aktivít pre lepšie debugovanie
+- Testovanie pomocou unittest s mock objektami
 
-- [ ] Implementácia UI komponentov
-- [ ] Implementácia core funkcionality
-- [ ] Implementácia integrácie s Gemini API
+## Plánované rozšírenia
 
-## Ďalšie kroky
+### Krátkodobé ciele:
+- Implementácia spracovania blokov pomocou Google Gemini API
+- Integrácia umelej inteligencie pre extrakciu údajov z blokov
+- Pridanie podpory pre rôzne formáty pokladničných blokov
+- Reimplementácia náhľadu obrázkov
 
-1. Implementácia UI komponentov:
-   - src/ui/main_window.py
-   - src/ui/directory_selector.py
-   - src/ui/file_list.py
+### Dlhodobé ciele:
+- Integrácia s účtovnými systémami
+- Mobilná aplikácia pre skenovanie blokov
+- Cloudové úložisko pre zdieľanie a zálohovanie dát
+- Štatistické analýzy výdavkov
+- Vylepšenie presnosti extrakcie údajov pomocou trénovania AI modelu na špecifických typoch blokov
 
-2. Implementácia core funkcionality:
-   - src/core/gemini_api.py
-   - src/core/receipt_processor.py
-   - src/core/excel_handler.py
-   - src/core/xml_generator.py
+## Technické detaily
 
-3. Implementácia pomocných funkcií:
-   - src/utils/file_utils.py
-   - src/utils/image_utils.py
-   - src/utils/security.py
+### Použité technológie:
+- Python 3.11+
+- Tkinter pre GUI
+- Google Gemini API pre OCR a extrakciu údajov
+- Unittest pre testovanie
+- Logging pre zaznamenávanie aktivít
 
-## Technické rozhodnutia
+### Štruktúra projektu:
+- `src/` - zdrojový kód aplikácie
+  - `ui/` - komponenty používateľského rozhrania
+    - `main_window.py` - hlavné okno aplikácie
+    - `directory_selector.py` - komponenta pre výber adresára
+    - `file_list.py` - komponenta pre zobrazenie zoznamu súborov
+    - `processing_options.py` - komponenta pre nastavenie možností spracovania
+    - `processing_panel.py` - komponenta pre ovládanie spracovania
+    - `results_viewer.py` - komponenta pre zobrazenie výsledkov
+  - `processing/` - logika spracovania blokov
+    - `gemini_processor.py` - integrácia s Google Gemini API (bude implementované)
+    - `data_extractor.py` - extrakcia štruktúrovaných údajov (bude implementované)
+  - `models/` - dátové modely (bude implementované)
+  - `utils/` - pomocné funkcie a nástroje (bude implementované)
+- `tests/` - testy
+  - `ui/` - testy UI komponentov
+    - `test_main_window.py` - testy pre hlavné okno
+    - ďalšie testy pre UI komponenty (budú implementované)
+  - `processing/` - testy logiky spracovania (bude implementované)
+- `docs/` - dokumentácia
+  - `development_context.md` - kontext vývoja projektu
+- `resources/` - statické zdroje (ikony, obrázky, atď.) (bude implementované)
 
-- Použitie tkinter pre UI
-- Použitie Gemini API pre extrakciu údajov z pokladničných blokov
-- Ukladanie údajov do Excel súborov
-- Generovanie XML súborov na základe šablóny
+## Vývojový proces
+
+- Vývoj prebieha na GitHub pomocou vetiev (branches)
+- Každá nová funkcia alebo oprava je implementovaná v samostatnej vetve
+- Zmeny sú začlenené do hlavnej vetvy pomocou Pull Requestov
+- Testy sú spúšťané manuálne pred každým commitom
+
+## Aktuálne výzvy a ďalšie kroky
+
+1. **Implementácia Google Gemini API**:
+   - Vytvorenie a konfigurácia Google Cloud projektu
+   - Získanie API kľúčov pre Gemini API
+   - Implementácia klienta pre komunikáciu s API
+   - Optimalizácia požiadaviek pre dosiahnutie najlepších výsledkov
+
+2. **Extrakcia údajov pomocou AI**:
+   - Definovanie štruktúry pre extrahované údaje
+   - Vytvorenie promptov pre Gemini API na extrakciu špecifických údajov
+   - Implementácia parsera pre spracovanie odpovedí z API
+   - Riešenie problémov s nejednoznačnosťou a chybami v rozpoznávaní
+
+3. **Vylepšenie UI**:
+   - Reimplementácia náhľadu obrázkov
+   - Pridanie pokročilých filtrov pre výsledky
+   - Vylepšenie používateľskej skúsenosti
+   - Pridanie indikátorov priebehu pri komunikácii s API
+
+4. **Rozšírenie testovania**:
+   - Vytvorenie testovacích dát (vzorové bloky)
+   - Implementácia mock objektov pre Gemini API
+   - Implementácia integračných testov
+   - Automatizácia testovania
