@@ -1,4 +1,4 @@
-# Data processing
+﻿# Data processing
 pandas
 numpy
 openpyxl
@@ -8,3 +8,7 @@ requests
 
 # Testing
 pytest
+
+# Google Gemini API
+google-genai
+python-dotenv
