@@ -20,13 +20,19 @@ class TestGeminiProcessor(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        # Načítanie premenných prostredia pred testami
-        load_env_file()
-        
-        # Kontrola, či je nastavený API kľúč
-        cls.api_key = os.environ.get("GEMINI_API_KEY")
-        if not cls.api_key:
-            raise unittest.SkipTest("GEMINI_API_KEY nie je nastavený v .env súbore")
+        """Príprava prostredia pre testy.
+
+        Test sa za behu nespája s externým API, preto je možné použiť
+        ľubovoľný reťazec ako API kľúč. Ak nie je nastavená premenná
+        ``RUN_GEMINI_TESTS`` hodnota z ``.env`` sa nevyužije a test sa
+        vykoná offline.
+        """
+
+        if os.environ.get("RUN_GEMINI_TESTS") == "1":
+            load_env_file()
+            cls.api_key = os.environ.get("GEMINI_API_KEY", "dummy")
+        else:
+            cls.api_key = "dummy"
     
     def setUp(self):
         self.processor = GeminiProcessor(api_key=self.api_key)

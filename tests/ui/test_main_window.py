@@ -16,10 +16,15 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../.
 
 from src.ui.main_window import MainWindow
 
+
 class TestMainWindow(unittest.TestCase):
-    """
-    Testy pre triedu MainWindow.
-    """
+    """Testy pre triedu MainWindow."""
+
+    @classmethod
+    def setUpClass(cls):
+        if not os.environ.get("DISPLAY"):
+            raise unittest.SkipTest("Nie je dostupné grafické prostredie")
+
     
     def setUp(self):
         """Nastavenie pred každým testom."""
