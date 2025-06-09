@@ -18,10 +18,18 @@ class TestGeminiProcessor(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        # Načítanie premenných prostredia pred testami
+        """Inicializácia prostredia pre testy.
+
+        Testy závislé od volania externého API sú v prostredí Codex
+        štandardne preskakované. Na ich spustenie je potrebné nastaviť
+        premennú ``RUN_GEMINI_TESTS=1``.
+        """
+
+        if os.environ.get("RUN_GEMINI_TESTS") != "1":
+            raise unittest.SkipTest("Gemini tests sú vypnuté")
+
         load_env_file()
-        
-        # Kontrola, či je nastavený API kľúč
+
         cls.api_key = os.environ.get("GEMINI_API_KEY")
         if not cls.api_key:
             raise unittest.SkipTest("GEMINI_API_KEY nie je nastavený v .env súbore")

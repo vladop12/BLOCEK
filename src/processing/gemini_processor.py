@@ -29,6 +29,13 @@ class GeminiProcessor:
         
         # Použitie modelu gemini-2.0-flash pre prácu s obrázkami
         self.model_name = "gemini-2.0-flash"
+
+    def _encode_image(self, image_path: str) -> str:
+        """Načíta obrázok a vráti jeho obsah zakódovaný v Base64."""
+        import base64
+
+        data = Path(image_path).read_bytes()
+        return base64.b64encode(data).decode("utf-8")
         
     def process_receipt(self, image_path):
         """
